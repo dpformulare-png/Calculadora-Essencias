@@ -1,0 +1,389 @@
+O usuário quer criar um site para calcular concentração de essências para velas, aromatizadores de vareta e sprays.
+Ele forneceu as seguintes especificações:
+1.  **Produtos:** Velas, Aromatizadores de Vareta, Sprays.
+2.  **Unidade:** mL.
+3.  **Regras de Cálculo:**
+    *   Velas (Cera de Coco): 15% de essência.
+    *   Aromatizadores (Vareta/Spray): Notas de entrada 15%, corpo 15%, saída 70%. (Aqui preciso ter cuidado. Geralmente, a regra de 15/15/70 se refere à *mistura* das essências entre si, não necessariamente à porcentagem final na base, mas vou assumir que ele quer calcular a quantidade de cada nota para compor a mistura total, ou talvez ele queira calcular a porcentagem total de essência na base. Vou interpretar como: "Como montar a mistura de essências" e "Quanto de essência usar na base").
+    *   *Correção de interpretação:* O usuário disse "notas de entrada 15%, notas de corpo 15%, e notas de saída 70%". Isso é a pirâmide olfativa padrão. Vou criar uma calculadora que calcula a quantidade de cada nota para compor a essência total, e outra que calcula a quantidade de essência total na base.
+4.  **Design:** Minimalista, Branco e Vinho. Nome: "Formulare - Calculadora de Essências".
+5.  **Conteúdo:** Criar exemplos de combinações.
+6.  **Plataforma:** Wix.
+
+**Desafio Técnico (Wix):** O Wix não permite inserir código HTML/JS complexo nativamente na maioria das páginas (a menos que seja via Embed Code, que tem limitações).
+**Solução:** Vou fornecer o código HTML/CSS/JS completo e limpo, e instruir o usuário sobre como usar o widget "Embed HTML" do Wix. Se o Wix for muito restritivo, sugiro usar o Wix Velo (se ele for programador) ou apenas o Embed Code para uma calculadora simples.
+
+**Plano de Ação:**
+1.  **Estrutura do Código:** Criar um arquivo único (HTML + CSS + JS) para facilitar a cópia.
+2.  **Design:** Usar CSS para o esquema de cores (Branco e Vinho).
+3.  **Lógica da Calculadora:**
+    *   *Calculadora de Base:* Quanto de essência usar na cera/água (ex: 100ml de base -> 15ml de essência).
+    *   *Calculadora de Pirâmide:* Dada a quantidade total de essência, quanto de cada nota usar (Topo, Coração, Fundo).
+4.  **Conteúdo (Combinações):** Criar 3 exemplos genéricos (Cítrico, Floral, Amadeirado) para ele editar depois.
+5.  **Instruções de Instalação:** Passo a passo para colocar no Wix.
+
+**Refinamento da Lógica de Pirâmide:**
+O usuário pediu: "notas de entrada 15%, notas de corpo 15%, e notas de saída 70%".
+Isso é uma proporção.
+Se eu tenho 10ml de essência total para usar na vela:
+- Topo: 1.5ml
+- Coração: 1.5ml
+- Fundo: 7ml
+Vou implementar isso.
+
+Vamos ao código.
+Com base nas suas especificações, preparei uma solução completa. Como você vai usar o **Wix**, a melhor forma de fazer isso é criando um código único (HTML + CSS + JavaScript) e inserindo-o no site usando o recurso **"Embed HTML"** (Incorporar Código).
+
+Abaixo, apresento o código pronto e, em seguida, as instruções de como colocar no Wix.
+
+### 1. O Código do Site (Formulare)
+
+Copie todo o código abaixo e salve em um arquivo no seu computador chamado `index.html` para testar, ou pule direto para a parte de "Como instalar no Wix".
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulare - Calculadora de Essências</title>
+    <style>
+        /* --- ESTILO E DESIGN (Minimalista: Branco e Vinho) --- */
+        :root {
+            --vinho: #722F37; /* Cor Vinho */
+            --branco: #ffffff;
+            --cinza-claro: #f4f4f4;
+            --texto: #333333;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--branco);
+            color: var(--texto);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--vinho);
+            color: var(--branco);
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Abas de Navegação */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--cinza-claro);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--texto);
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: var(--vinho);
+        }
+
+        .tab-btn.active {
+            color: var(--vinho);
+            border-bottom: 3px solid var(--vinho);
+            font-weight: bold;
+        }
+
+        /* Conteúdo das Abas */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Formulários */
+        .calculator-box {
+            background-color: var(--cinza-claro);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--vinho);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--vinho);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box; /* Garante que o padding não aumente a largura */
+        }
+
+        button.calc-btn {
+            background-color: var(--vinho);
+            color: var(--branco);
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        button.calc-btn:hover {
+            background-color: #5a232b;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none; /* Escondido inicialmente */
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
+        }
+
+        .result-item strong {
+            color: var(--vinho);
+        }
+
+        /* Seção de Combinações */
+        .recipe-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .recipe-title {
+            color: var(--vinho);
+            font-size: 1.2rem;
+            margin-top: 0;
+        }
+
+        .recipe-notes {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .pyramid-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .bar-segment {
+            height: 100%;
+        }
+        
+        .bar-topo { background-color: #ff9999; } /* Exemplo visual */
+        .bar-coracao { background-color: #ffcc99; }
+        .bar-fundo { background-color: #99ccff; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Formulare</h1>
+    <p>Calculadora de Essências</p>
+</header>
+
+<div class="container">
+    <!-- Navegação -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('calculadora')">Calculadora</button>
+        <button class="tab-btn" onclick="openTab('combinações')">Combinações Prontas</button>
+    </div>
+
+    <!-- ABA 1: CALCULADORA -->
+    <div id="calculadora" class="tab-content active">
+        
+        <div class="calculator-box">
+            <h3>1. Defina o Produto</h3>
+            <div class="form-group">
+                <label>Tipo de Produto:</label>
+                <select id="tipoProduto" onchange="atualizarRegra()">
+                    <option value="vela">Vela (Cera de Coco)</option>
+                    <option value="vareta">Aromatizador de Vareta</option>
+                    <option value="spray">Spray Aromatizante</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Quantidade Total de Base (mL):</label>
+                <input type="number" id="quantidadeBase" placeholder="Ex: 100">
+            </div>
+
+            <button class="calc-btn" onclick="calcularBase()">Calcular Essência Total</button>
+
+            <div id="resultadoBase" class="result-box">
+                <h4>Resultado para a Base:</h4>
+                <div class="result-item">
+                    <span>Essência Total Necessária:</span>
+                    <strong id="resEssenciaTotal">0 mL</strong>
+                </div>
+                <p style="font-size: 0.8rem; color: #666;">*Use esta quantidade de essência pura para misturar na sua base.</p>
+            </div>
+        </div>
+
+        <div class="calculator-box" style="margin-top: 30px;">
+            <h3>2. Dividir as Notas (Pirâmide Olfativa)</h3>
+            <p style="font-size: 0.9rem;">Agora vamos dividir a essência total que você calculou acima em Topo, Coração e Fundo.</p>
+            
+            <div class="form-group">
+                <label>Quantidade de Essência Total (mL):</label>
+                <input type="number" id="qtdEssencia" placeholder="Cole o valor calculado acima">
+            </div>
+
+            <button class="calc-btn" onclick="calcularPiramide()">Dividir Pirâmide</button>
+
+            <div id="resultadoPiramide" class="result-box">
+                <h4>Proporção Sugerida (15% Topo / 15% Coração / 70% Fundo):</h4>
+                <div class="pyramid-bar">
+                    <div class="bar-segment bar-topo" style="width: 15%"></div>
+                    <div class="bar-segment bar-coracao" style="width: 15%"></div>
+                    <div class="bar-segment bar-fundo" style="width: 70%"></div>
+                </div>
+                <div class="result-item">
+                    <span>Notas de Topo (Saída):</span>
+                    <strong id="resTopo">0 mL</strong>
+                </div>
+                <div class="result-item">
+                    <span>Notas de Coração:</span>
+                    <strong id="resCoração">0 mL</strong>
+                </div>
+                <div class="result-item">
+                    <span>Notas de Fundo (Saída):</span>
+                    <strong id="resFundo">0 mL</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 2: COMBINAÇÕES -->
+    <div id="combinações" class="tab-content">
+        
+        <div class="recipe-card">
+            <h3 class="recipe-title">1. Citrus Breeze (Cítrico e Fresco)</h3>
+            <p class="recipe-notes">Ideal para cozinhas e banheiros. Energia e limpeza.</p>
+            
+            <div class="pyramid-bar">
+                <div class="bar-segment bar-topo" style="width: 15%"></div>
+                <div class="bar-segment bar-coracao" style="width: 15%"></div>
+                <div class="bar-segment bar-fundo" style="width: 70%"></div>
+            </div>
+
+            <ul>
+                <li><strong>Topo (15%):</strong> Limão Siciliano</li>
+                <li><strong>Coração (15%):</strong> Bergamota</li>
+                <li><strong>Fundo (70%):</strong> Alecrim</li>
+            </ul>
+        </div>
+
+        <div class="recipe-card">
+            <h3 class="recipe-title">2. Midnight Rose (Floral e Elegante)</h3>
+            <p class="recipe-notes">Perfeito para quartos e salas de estar. Sofisticação.</p>
+            
+            <div class="pyramid-bar">
+                <div class="bar-segment bar-topo" style="width: 15%"></div>
+                <div class="bar-segment bar-coracao" style="width: 15%"></div>
+                <div class="bar-segment bar-fundo" style="width: 70%"></div>
+            </div>
+
+            <ul>
+                <li><strong>Topo (15%):</strong> Jasmim Sambac</li>
+                <li><strong>Coração (15%):</strong> Rosa Damascena</li>
+                <li><strong>Fundo (70%):</strong> Patchouli</li>
+            </ul>
+        </div>
+
+        <div class="recipe-card">
+            <h3 class="recipe-title">3. Warm Vanilla (Doce e Confortante)</h3>
+            <p class="recipe-notes">Aconchegante para dias de chuva e inverno.</p>
+            
+            <div class="pyramid-bar">
+                <div class="bar-segment bar-topo" style="width: 15%"></div>
+                <div class="bar-segment bar-coracao" style="width: 15%"></div>
+                <div class="bar-segment bar-fundo" style="width: 70%"></div>
+            </div>
+
+            <ul>
+                <li><strong>Topo (15%):</strong> Baunilha Bourbon</li>
+                <li><strong>Coração (15%):</strong> Canela</li>
+                <li><strong>Fundo (70%):</strong> Âmbar</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Função para alternar abas
+    function openTab(tabName) {
+        var i;
+        var x = document.getElementsByClassName("tab-content");
+        var tabs = document.getElementsByClassName("tab-btn");
+        
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+            x[i].classList.remove("active");
+        }
+        for (i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+        }
+        
+        document.getElementById(tabName).style.display = "block";
+       
