@@ -128,13 +128,21 @@
             color: var(--vinho);
         }
 
-        input, select {
+        input[type="number"],
+        input[type="text"],
+        select {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid var(--cinza-claro);
             border-radius: 8px;
             font-size: 16px;
             transition: border-color 0.3s;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            accent-color: var(--vinho);
         }
 
         input:focus, select:focus {
