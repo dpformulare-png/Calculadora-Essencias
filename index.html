@@ -1,12 +1,3 @@
-# 🔄 Código Atualizado - Formulare Pro
-
-Aqui está o código completo com todas as alterações solicitadas:
-
----
-
-## 📋 Código Completo Atualizado
-
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -65,7 +56,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             padding: 20px;
         }
 
-        /* Navegação */
         .tabs {
             display: flex;
             justify-content: center;
@@ -97,7 +87,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             font-weight: bold;
         }
 
-        /* Conteúdo das Abas */
         .tab-content {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -112,7 +101,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Caixas de Calculadora */
         .calculator-box {
             background-color: var(--branco);
             padding: 30px;
@@ -173,7 +161,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             box-shadow: 0 4px 12px rgba(114, 47, 55, 0.3);
         }
 
-        /* Resultados */
         .result-box {
             margin-top: 20px;
             padding: 20px;
@@ -200,7 +187,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             font-size: 1.1rem;
         }
 
-        /* Pirâmide Visual */
         .pyramid-bar {
             height: 20px;
             background: var(--cinza-medio);
@@ -220,7 +206,6 @@ Aqui está o código completo com todas as alterações solicitadas:
         .bar-coracao { background: linear-gradient(90deg, #ffcc99, #ff9966); }
         .bar-fundo { background: linear-gradient(90deg, #99ccff, #6699ff); }
 
-        /* Seção de Essências */
         .essence-selector {
             background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
             padding: 30px;
@@ -267,7 +252,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             accent-color: var(--vinho);
         }
 
-        /* Resultados de Combinação */
         .pairing-result {
             background-color: var(--branco);
             border: 2px solid var(--vinho);
@@ -312,7 +296,6 @@ Aqui está o código completo com todas as alterações solicitadas:
         .pairing-tag.coracao { background-color: #ffcc99; }
         .pairing-tag.fundo { background-color: #99ccff; }
 
-        /* Filtros de Combinações */
         .filter-section {
             display: flex;
             gap: 15px;
@@ -331,7 +314,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             min-width: 200px;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8rem;
@@ -356,7 +338,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             }
         }
 
-        /* Scrollbar personalizada */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -375,7 +356,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             background: var(--vinho-claro);
         }
 
-        /* Dicas */
         .tips-box {
             background-color: #fff8e1;
             border-left: 4px solid #ffc107;
@@ -399,7 +379,6 @@ Aqui está o código completo com todas as alterações solicitadas:
             color: #856404;
         }
 
-        /* Seção de Notas */
         .notes-section {
             background-color: #f9f9f9;
             padding: 20px;
@@ -452,11 +431,10 @@ Aqui está o código completo com todas as alterações solicitadas:
 </header>
 
 <div class="container">
-    <!-- Navegação -->
     <div class="tabs">
         <button class="tab-btn active" onclick="openTab('calculadora')">🧮 Calculadora</button>
         <button class="tab-btn" onclick="openTab('essencias')">🌸 Essências</button>
-        <button class="tab-btn" onclick="openTab('combinações')">📚 Combinações</button>
+        <button class="tab-btn" onclick="openTab('combinacoes')">📚 Combinações</button>
         <button class="tab-btn" onclick="openTab('dicas')">💡 Dicas</button>
     </div>
 
@@ -503,5 +481,403 @@ Aqui está o código completo com todas as alterações solicitadas:
                     <div class="note-card">
                         <h5>🔝 Notas de Topo</h5>
                         <div class="form-group">
-                            <label>Quantidade de Essências:</label>
-                            <select id="q
+                            <label>% de Topo:</label>
+                            <select id="qTopo">
+                                <option value="30">30% (Leve)</option>
+                                <option value="40">40% (Balanceado)</option>
+                                <option value="50">50% (Forte)</option>
+                            </select>
+                        </div>
+                        <div class="note-quantity" id="qTopoDisplay">0 mL</div>
+                    </div>
+
+                    <div class="note-card">
+                        <h5>💛 Notas de Coração</h5>
+                        <div class="form-group">
+                            <label>% de Coração:</label>
+                            <select id="qCoracao">
+                                <option value="50">50% (Principal)</option>
+                                <option value="60">60% (Forte)</option>
+                                <option value="40">40% (Suave)</option>
+                            </select>
+                        </div>
+                        <div class="note-quantity" id="qCoracaoDisplay">0 mL</div>
+                    </div>
+
+                    <div class="note-card">
+                        <h5>🔵 Notas de Fundo</h5>
+                        <div class="form-group">
+                            <label>% de Fundo:</label>
+                            <select id="qFundo">
+                                <option value="20">20% (Leve)</option>
+                                <option value="30">30% (Balanceado)</option>
+                                <option value="40">40% (Forte)</option>
+                            </select>
+                        </div>
+                        <div class="note-quantity" id="qFundoDisplay">0 mL</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h4>Visualização da Pirâmide:</h4>
+                <div class="pyramid-bar">
+                    <div class="bar-segment bar-topo" id="barTopo" style="width: 30%"></div>
+                    <div class="bar-segment bar-coracao" id="barCoracao" style="width: 50%"></div>
+                    <div class="bar-segment bar-fundo" id="barFundo" style="width: 20%"></div>
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calcularPiramide()">Calcular Distribuição</button>
+
+            <div id="resultadoPiramide" class="result-box">
+                <h4>✨ Distribuição das Notas:</h4>
+                <div class="result-item">
+                    <span>🔝 Notas de Topo:</span>
+                    <strong id="resTopo">0 mL</strong>
+                </div>
+                <div class="result-item">
+                    <span>💛 Notas de Coração:</span>
+                    <strong id="resCoracao">0 mL</strong>
+                </div>
+                <div class="result-item">
+                    <span>🔵 Notas de Fundo:</span>
+                    <strong id="resFundo">0 mL</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 2: ESSÊNCIAS -->
+    <div id="essencias" class="tab-content">
+        <div class="essence-selector">
+            <h3>🌸 Seleção de Essências</h3>
+            <p>Escolha suas essências favoritas e veja as combinações perfeitas:</p>
+            
+            <div class="essence-grid" id="essenceGrid"></div>
+            
+            <button class="calc-btn" onclick="encontrarCombinacoes()" style="margin-top: 20px;">Encontrar Combinações</button>
+        </div>
+
+        <div id="resultadoCombinacoes" class="pairing-result">
+            <h3>✨ Suas Melhores Combinações</h3>
+            <div id="combinacoesContent"></div>
+        </div>
+    </div>
+
+    <!-- ABA 3: COMBINAÇÕES -->
+    <div id="combinacoes" class="tab-content">
+        <div class="calculator-box">
+            <h3>📚 Guia de Combinações Perfeitas</h3>
+            
+            <div class="filter-section">
+                <label for="filterPerfil">Filtrar por Perfil:</label>
+                <select id="filterPerfil" onchange="filtrarCombinacoes()">
+                    <option value="">Todas</option>
+                    <option value="floral">Floral</option>
+                    <option value="frutal">Frutal</option>
+                    <option value="madeirado">Madeirado</option>
+                    <option value="oriental">Oriental</option>
+                </select>
+            </div>
+
+            <div id="combinacoesGuia"></div>
+        </div>
+    </div>
+
+    <!-- ABA 4: DICAS -->
+    <div id="dicas" class="tab-content">
+        <div class="tips-box">
+            <h4>💡 Dicas Importantes para Perfumaria</h4>
+            <ul>
+                <li><strong>Temperatura:</strong> Mantenha as essências em local fresco, entre 15-20°C</li>
+                <li><strong>Luz:</strong> Armazene em frascos opacos para evitar degradação</li>
+                <li><strong>Limpeza:</strong> Use sempre equipamentos limpos ao misturar essências</li>
+                <li><strong>Proporções:</strong> Siga as regras de concentração para cada tipo de produto</li>
+                <li><strong>Repouso:</strong> Deixe a mistura descansar por 48h antes de usar</li>
+                <li><strong>Teste:</strong> Sempre teste em pequenas quantidades antes de grandes produções</li>
+            </ul>
+        </div>
+
+        <div class="tips-box" style="background-color: #e8f5e9; border-left-color: #4caf50;">
+            <h4 style="color: #2e7d32;">🎯 Concentração Recomendada por Tipo</h4>
+            <ul style="color: #2e7d32;">
+                <li><strong>Velas Aromatizadas:</strong> 7-10% de essência (máximo 100mL/Kg de cera)</li>
+                <li><strong>Aromatizadores de Vareta:</strong> 5-8% de essência</li>
+                <li><strong>Spray Aromatizante:</strong> 3-5% de essência</li>
+                <li><strong>Perfume/Eau de Toilette:</strong> 3-5% em álcool</li>
+            </ul>
+        </div>
+
+        <div class="tips-box" style="background-color: #fce4ec; border-left-color: #e91e63;">
+            <h4 style="color: #880e4f;">🌺 Combinações Clássicas que Funcionam</h4>
+            <ul style="color: #880e4f;">
+                <li><strong>Floral Romântico:</strong> Rosa + Jasmim + Almíscar</li>
+                <li><strong>Frutal Refrescante:</strong> Bergamota + Melancia + Melão</li>
+                <li><strong>Madeirado Elegante:</strong> Sândalo + Cedro + Âmbar</li>
+                <li><strong>Oriental Exótico:</strong> Baunilha + Âmbar + Patchouli</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Dados de essências disponíveis
+    const essencias = {
+        'Rosa': { topo: false, coracao: true, fundo: false, perfil: 'floral' },
+        'Jasmim': { topo: false, coracao: true, fundo: false, perfil: 'floral' },
+        'Lavanda': { topo: true, coracao: true, fundo: false, perfil: 'floral' },
+        'Bergamota': { topo: true, coracao: false, fundo: false, perfil: 'frutal' },
+        'Melancia': { topo: true, coracao: false, fundo: false, perfil: 'frutal' },
+        'Morango': { topo: true, coracao: true, fundo: false, perfil: 'frutal' },
+        'Sândalo': { topo: false, coracao: false, fundo: true, perfil: 'madeirado' },
+        'Cedro': { topo: false, coracao: false, fundo: true, perfil: 'madeirado' },
+        'Baunilha': { topo: false, coracao: true, fundo: true, perfil: 'oriental' },
+        'Âmbar': { topo: false, coracao: false, fundo: true, perfil: 'oriental' },
+        'Patchouli': { topo: false, coracao: false, fundo: true, perfil: 'oriental' },
+        'Almíscar': { topo: false, coracao: false, fundo: true, perfil: 'oriental' }
+    };
+
+    // Dados de combinações
+    const combinacoesPerfectas = [
+        {
+            nome: 'Floral Romântico',
+            essencias: ['Rosa', 'Jasmim', 'Almíscar'],
+            topo: ['Lavanda'],
+            coracao: ['Rosa', 'Jasmim'],
+            fundo: ['Almíscar'],
+            perfil: 'floral',
+            descricao: 'Combinação clássica e elegante, perfeita para criar um aroma sofisticado'
+        },
+        {
+            nome: 'Frutal Refrescante',
+            essencias: ['Bergamota', 'Melancia', 'Morango'],
+            topo: ['Bergamota'],
+            coracao: ['Melancia', 'Morango'],
+            fundo: ['Baunilha'],
+            perfil: 'frutal',
+            descricao: 'Aroma leve, refrescante e alegre, ideal para primavera e verão'
+        },
+        {
+            nome: 'Madeirado Elegante',
+            essencias: ['Sândalo', 'Cedro', 'Âmbar'],
+            topo: ['Lavanda'],
+            coracao: ['Cedro'],
+            fundo: ['Sândalo', 'Âmbar'],
+            perfil: 'madeirado',
+            descricao: 'Aroma sofisticado e masculino, perfeito para ambientes requintados'
+        },
+        {
+            nome: 'Oriental Exótico',
+            essencias: ['Baunilha', 'Âmbar', 'Patchouli'],
+            topo: ['Bergamota'],
+            coracao: ['Baunilha'],
+            fundo: ['Patchouli', 'Âmbar'],
+            perfil: 'oriental',
+            descricao: 'Aroma envolvente e sedutor, ideal para noites especiais'
+        }
+    ];
+
+    // Função para abrir abas
+    function openTab(tabName) {
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+        
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(tabName).classList.add('active');
+        event.target.classList.add('active');
+
+        if (tabName === 'essencias') {
+            carregarEssencias();
+        } else if (tabName === 'combinacoes') {
+            carregarCombinacoes();
+        }
+    }
+
+    // Função para carregar essências
+    function carregarEssencias() {
+        const grid = document.getElementById('essenceGrid');
+        grid.innerHTML = '';
+
+        for (const [nome, dados] of Object.entries(essencias)) {
+            const label = document.createElement('label');
+            label.className = 'essence-checkbox';
+            label.innerHTML = `
+                <input type="checkbox" value="${nome}">
+                <span>${nome}</span>
+            `;
+            grid.appendChild(label);
+        }
+    }
+
+    // Função para encontrar combinações
+    function encontrarCombinacoes() {
+        const checkboxes = document.querySelectorAll('#essenceGrid input:checked');
+        const selecionadas = Array.from(checkboxes).map(cb => cb.value);
+
+        if (selecionadas.length === 0) {
+            alert('Selecione pelo menos uma essência!');
+            return;
+        }
+
+        const resultado = document.getElementById('resultadoCombinacoes');
+        const content = document.getElementById('combinacoesContent');
+        content.innerHTML = '';
+
+        combinacoesPerfectas.forEach(combo => {
+            const match = selecionadas.some(sel => combo.essencias.includes(sel));
+            if (match) {
+                const div = document.createElement('div');
+                div.className = 'pairing-section';
+                div.innerHTML = `
+                    <h4>${combo.nome}</h4>
+                    <p>${combo.descricao}</p>
+                    <p><strong>Topo:</strong></p>
+                    <div class="pairing-tags">
+                        ${combo.topo.map(e => `<span class="pairing-tag topo">${e}</span>`).join('')}
+                    </div>
+                    <p><strong>Coração:</strong></p>
+                    <div class="pairing-tags">
+                        ${combo.coracao.map(e => `<span class="pairing-tag coracao">${e}</span>`).join('')}
+                    </div>
+                    <p><strong>Fundo:</strong></p>
+                    <div class="pairing-tags">
+                        ${combo.fundo.map(e => `<span class="pairing-tag fundo">${e}</span>`).join('')}
+                    </div>
+                `;
+                content.appendChild(div);
+            }
+        });
+
+        resultado.style.display = content.innerHTML ? 'block' : 'none';
+    }
+
+    // Função para carregar combinações
+    function carregarCombinacoes() {
+        const container = document.getElementById('combinacoesGuia');
+        container.innerHTML = '';
+
+        combinacoesPerfectas.forEach(combo => {
+            const div = document.createElement('div');
+            div.className = 'pairing-result';
+            div.style.display = 'block';
+            div.innerHTML = `
+                <h4>${combo.nome}</h4>
+                <p>${combo.descricao}</p>
+                <div class="pairing-section">
+                    <h5>🔝 Notas de Topo:</h5>
+                    <div class="pairing-tags">
+                        ${combo.topo.map(e => `<span class="pairing-tag topo">${e}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="pairing-section">
+                    <h5>💛 Notas de Coração:</h5>
+                    <div class="pairing-tags">
+                        ${combo.coracao.map(e => `<span class="pairing-tag coracao">${e}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="pairing-section">
+                    <h5>🔵 Notas de Fundo:</h5>
+                    <div class="pairing-tags">
+                        ${combo.fundo.map(e => `<span class="pairing-tag fundo">${e}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // Função para filtrar combinações
+    function filtrarCombinacoes() {
+        const filtro = document.getElementById('filterPerfil').value;
+        const combinacoes = document.querySelectorAll('#combinacoesGuia .pairing-result');
+
+        if (!filtro) {
+            combinacoes.forEach(c => c.style.display = 'block');
+            return;
+        }
+
+        combinacoesPerfectas.forEach((combo, index) => {
+            if (combo.perfil === filtro) {
+                combinacoes[index].style.display = 'block';
+            } else {
+                combinacoes[index].style.display = 'none';
+            }
+        });
+    }
+
+    // Função para atualizar regra
+    function atualizarRegra() {
+        const tipo = document.getElementById('tipoProduto').value;
+        const regras = {
+            'vela': '7-10%',
+            'vareta': '5-8%',
+            'spray': '3-5%'
+        };
+        console.log(`Concentração para ${tipo}: ${regras[tipo]}`);
+    }
+
+    // Função para calcular base
+    function calcularBase() {
+        const quantidade = parseFloat(document.getElementById('quantidadeBase').value);
+        const tipo = document.getElementById('tipoProduto').value;
+
+        if (!quantidade || quantidade <= 0) {
+            alert('Digite uma quantidade válida!');
+            return;
+        }
+
+        const percentuais = {
+            'vela': 0.08,
+            'vareta': 0.06,
+            'spray': 0.04
+        };
+
+        const essencia = quantidade * percentuais[tipo];
+        const base = quantidade - essencia;
+
+        document.getElementById('resBase').textContent = base.toFixed(2) + ' mL';
+        document.getElementById('resEssenciaTotal').textContent = essencia.toFixed(2) + ' mL';
+        document.getElementById('resultadoBase').style.display = 'block';
+        document.getElementById('secaoPiramide').style.display = 'block';
+
+        window.essenciaTotal = essencia;
+    }
+
+    // Função para calcular pirâmide
+    function calcularPiramide() {
+        if (!window.essenciaTotal) {
+            alert('Calcule a essência total primeiro!');
+            return;
+        }
+
+        const pTopo = parseInt(document.getElementById('qTopo').value);
+        const pCoracao = parseInt(document.getElementById('qCoracao').value);
+        const pFundo = parseInt(document.getElementById('qFundo').value);
+
+        const total = pTopo + pCoracao + pFundo;
+        
+        const qTopo = (window.essenciaTotal * pTopo) / total;
+        const qCoracao = (window.essenciaTotal * pCoracao) / total;
+        const qFundo = (window.essenciaTotal * pFundo) / total;
+
+        document.getElementById('resTopo').textContent = qTopo.toFixed(2) + ' mL';
+        document.getElementById('resCoracao').textContent = qCoracao.toFixed(2) + ' mL';
+        document.getElementById('resFundo').textContent = qFundo.toFixed(2) + ' mL';
+
+        document.getElementById('qTopoDisplay').textContent = qTopo.toFixed(2) + ' mL';
+        document.getElementById('qCoracaoDisplay').textContent = qCoracao.toFixed(2) + ' mL';
+        document.getElementById('qFundoDisplay').textContent = qFundo.toFixed(2) + ' mL';
+
+        document.getElementById('barTopo').style.width = pTopo + '%';
+        document.getElementById('barCoracao').style.width = pCoracao + '%';
+        document.getElementById('barFundo').style.width = pFundo + '%';
+
+        document.getElementById('resultadoPiramide').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
